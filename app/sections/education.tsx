@@ -1,31 +1,29 @@
 import React from "react";
 import "../animations/animate.css";
-// import AnimatedBody from "../animations/AnimatedBody";
 import AnimatedTitle from "../animations/AnimatedTitle";
-import HackerBackground from "../components/background/hackerbg";
 import EducationCard from "../components/ui/EducationCard";
 import { motion } from "framer-motion";
 
 const educationDetails = [
     {
-        delay: 0.2,
         institute: "CMR INSTITUTE OF TECHNOLOGY",
         location: "Hyderabad, India",
-        degree: "Computer Science and Engineering B.Tech (2022 - 2026)",
+        degree: "B.Tech in Computer Science and Engineering",
+        duration: "2022 — 2026",
         score: "CGPA: 7.03/10",
     },
     {
-        delay: 0.3,
-        institute: "SRI CHAITANYA JUNIORKALASALA",
-        location: "Uppal, Hyderabad, India",
-        degree: "MPC Intermediate (2020 - 2022)",
-        score: "Percentage: 68.5%/100%",
+        institute: "SRI CHAITANYA JUNIOR KALASALA",
+        location: "Uppal, Hyderabad",
+        degree: "Intermediate - MPC",
+        duration: "2020 — 2022",
+        score: "68.5%",
     },
     {
-        delay: 0.4,
-        institute: "SRI CHAITANYA TECHNICAL CURRICULUM SCHOOL",
-        location: "Nallakunta, Hyderabad, India",
-        degree: "Schooling - SSC (2019 - 2020)",
+        institute: "SRI CHAITANYA TECHNICAL SCHOOL",
+        location: "Nallakunta, Hyderabad",
+        degree: "Secondary School Certificate (SSC)",
+        duration: "2019 — 2020",
         score: "GPA: 9.8/10",
     },
 ];
@@ -33,41 +31,53 @@ const educationDetails = [
 const Education = () => {
     return (
         <section
-            className="relative z-10 w-full flex flex-col items-center justify-center overflow-hidden bg-cover 
-            bg-center pt-16 pb-36 md:pt-20 md:pb-44 lg:pt-20 lg:pb-56"
+            className="relative z-10 w-full bg-black py-24 md:py-32"
             id="education"
         >
-            <div className="absolute inset-0 opacity-100">
-                <HackerBackground />
-                <div className="absolute inset-0 bg-black opacity-60 z-[1] backdrop-blur-md"></div>
+            {/* Minimal Ambient Background - No hard lines */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[800px] bg-[#5CE65C]/[0.02] rounded-full blur-[120px]" />
             </div>
 
-            <div className="relative z-20 mx-auto flex w-[90%] flex-col items-center justify-center lg:max-w-[1212.8px]">
-                <AnimatedTitle
-                    text={"EDUCATION DETAILS"}
-                    className="mb-12 text-center text-[40px] font-extrabold leading-[0.9em] tracking-tight text-white neon-glow sm:text-[45px] md:text-[60px] lg:text-[80px]"
-                    wordSpace="mr-[14px]"
-                    charSpace="mr-[0.001em]"
-                />
+            <div className="relative z-20 mx-auto max-w-[1200px] px-6">
+                <header className="mb-20 flex flex-col items-center justify-center text-center">
+                    <AnimatedTitle
+                        text={"EDUCATION"}
+                        className="text-[35px] font-black leading-none tracking-tighter text-white sm:text-[55px] md:text-[75px] lg:text-[90px]"
+                        wordSpace="mr-[0.3em]"
+                        charSpace=""
+                    />
+                </header>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full justify-center">
+                <div className="grid grid-cols-1 gap-16 md:gap-24 lg:grid-cols-2">
                     {educationDetails.map((edu, index) => (
-                        <motion.div
+                        <div
                             key={index}
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: edu.delay }}
-                            className="w-full hover:scale-105 transition-transform duration-300"
+                            className={`${index === 1 ? 'lg:mt-32' : ''} ${index === 2 ? 'lg:-mt-32' : ''}`}
                         >
                             <EducationCard
                                 institution={edu.institute}
                                 location={edu.location}
                                 degree={edu.degree}
-                                duration={edu.degree.split('(')[1].replace(')', '')}
+                                duration={edu.duration}
                                 score={edu.score}
                             />
-                        </motion.div>
+                        </div>
                     ))}
+
+                    {/* Unique layout filler to break the "grid box" feel */}
+                    <div className="hidden lg:flex items-center justify-center p-12">
+                        <motion.div
+                            animate={{
+                                scale: [1, 1.1, 1],
+                                opacity: [0.1, 0.2, 0.1]
+                            }}
+                            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                            className="text-[150px] font-black text-white/[0.03] select-none"
+                        >
+                            GRAD
+                        </motion.div>
+                    </div>
                 </div>
             </div>
         </section>

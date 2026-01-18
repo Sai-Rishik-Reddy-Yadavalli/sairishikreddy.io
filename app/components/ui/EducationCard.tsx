@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaMapMarkerAlt, FaGraduationCap } from "react-icons/fa";
-import { MdSchool } from "react-icons/md";
+import { FaGraduationCap } from "react-icons/fa";
 
 interface EducationCardProps {
     institution: string;
@@ -14,26 +13,40 @@ interface EducationCardProps {
 const EducationCard: React.FC<EducationCardProps> = ({ institution, location, degree, duration, score }) => {
     return (
         <motion.div
-            className="bg-gray-900 text-white p-6 rounded-2xl shadow-lg w-full h-full min-w-[300px] max-w-[500px] min-h-[250px] flex-wrap flex-col justify-between"
-            initial={{ opacity: 0, y: 50 }}
+            className="group relative flex flex-col gap-4 p-4 transition-all"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
         >
-            <div>
-                <div className="flex items-center gap-4">
-                    <MdSchool className="text-4xl text-blue-400" />
-                    <h2 className="text-2xl font-bold">{institution}</h2>
+            {/* Subtle Hover Glow - No Box, just light */}
+            <div className="absolute inset-0 -z-10 rounded-3xl bg-[#5CE65C]/[0.03] opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
+
+            <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-bold tracking-[0.3em] text-[#5CE65C] uppercase">
+                        {duration}
+                    </span>
+                    <div className="h-[1px] flex-1 bg-white/5 group-hover:bg-[#5CE65C]/20 transition-colors" />
                 </div>
-                <p className="flex items-center text-gray-300 mt-2">
-                    <FaMapMarkerAlt className="mr-2 text-yellow-400" /> {location}
-                </p>
-                <p className="flex items-center text-gray-300 mt-2">
-                    <FaGraduationCap className="mr-2 text-green-400" /> {degree}
+
+                <h3 className="text-xl font-bold text-white sm:text-2xl mt-2 group-hover:text-[#5CE65C] transition-colors">
+                    {institution}
+                </h3>
+
+                <p className="text-gray-400 font-medium">
+                    {degree}
                 </p>
             </div>
-            <div>
-                <p className="text-gray-300 mt-2">🕒 {duration}</p>
-                <p className="text-gray-300 mt-2">📈 {score}</p>
+
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                <span className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
+                    {location}
+                </span>
+                <span className="flex items-center gap-2 text-[#5CE65C]">
+                    <FaGraduationCap className="text-sm" />
+                    {score}
+                </span>
             </div>
         </motion.div>
     );

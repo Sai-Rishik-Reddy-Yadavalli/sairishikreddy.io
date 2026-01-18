@@ -4,7 +4,7 @@ import React from "react";
 import AnimatedTitle from "../animations/AnimatedTitle";
 import HackerBackground from "../components/background/hackerbg";
 import Image from "next/image";
-import { SiReact, SiNextdotjs, SiFigma } from "react-icons/si";
+// import { SiReact, SiNextdotjs, SiFigma } from "react-icons/si";
 
 const FloatingElement = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => (
     <motion.div
@@ -126,7 +126,7 @@ const Hero = () => {
                         <div className="absolute inset-10 border border-white/5 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
 
                         {/* Decorative Radial Glows */}
-                        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.2),transparent_70%)]" />
+                        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.2),transparent_100%)]" />
 
                         <Image
                             src="/assets/creative-avatar.png"
