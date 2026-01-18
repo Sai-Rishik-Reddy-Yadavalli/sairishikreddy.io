@@ -7,7 +7,7 @@ const Blur = () => {
         const scrollY = window.scrollY;
         const windowHeight = window.innerHeight;
         const bodyHeight = document.body.clientHeight;
-        const bottomThreshold = bodyHeight - windowHeight - 25;
+        const bottomThreshold = bodyHeight - windowHeight - 10;
 
         const opacity = scrollY >= bottomThreshold ? 0 : 1;
         setScrollOpacity(opacity);
@@ -28,7 +28,7 @@ const Blur = () => {
 
     return (
         <div
-            className={`fixed inset-0 p-1 w-full h-full backdrop-blur-[8px] 
+            className={`fixed inset-0 p-1 w-full h-full backdrop-blur-[38px] 
                 pointer-events-none z-50 opacity-${scrollOpacity} overlay-mask`}
         />
     );
