@@ -41,7 +41,7 @@
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/postcss": "^4.0.14",
     "appdir": "^1.0.1",
-    "axios": "^1.8.4",
+    "axios": "^1.12.0",
     "browserslist": "^4.24.4",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
