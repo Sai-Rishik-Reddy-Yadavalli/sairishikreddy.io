@@ -17,6 +17,6 @@ This portfolio is built using **Next.js** to provide a fast, modern, and respons
 ## 🎯 My Goal  
 This portfolio is not just a website; it's my **digital identity**, representing my problem-solving skills and innovative mindset. Through this, I aim to **connect with recruiters, showcase my expertise, and stand out in the tech industry.**  
 
-🔗 **Check it out here:** [https://22r01a0561.github.io/sairishikreddy.io/](https://22r01a0561.github.io/sairishikreddy.io/)  
+🔗 **Check it out here:** [ https://sai-rishik-reddy-yadavalli.github.io/sairishikreddy.io/](https://sai-rishik-reddy-yadavalli.github.io/sairishikreddy.io/)  
 
 🚀 _Let’s build something amazing together!_  
