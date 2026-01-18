@@ -39,14 +39,14 @@ const Hero = () => {
 
                     {/* Resume Button */}
                     <a
-                        href="https://drive.google.com/file/d/1wQNNeUDL6Wd_1OGXP-9LqUO1bgt_kJbm/view?usp=sharing"
+                        href="https://drive.google.com/file/d/1X9OM1Jq9Dl9oXFwS65sNKtqTI71DmwZK/view?usp=sharing"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mt-5 rounded-lg border-2 border-white px-6 py-3 text-white transition duration-300 hover:bg-white hover:text-black sm:px-8 sm:py-3 md:text-lg"
                     >
                         My Resume
                     </a>
-                    
+
                     {/* Coding Platform Links
                     <div className="mt-6 flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5">
                         <a
