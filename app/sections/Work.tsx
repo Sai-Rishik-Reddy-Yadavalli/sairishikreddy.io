@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const Work = () => {
     return (
         <section
-            className="relative z-10 flex w-full flex-col items-center justify-center bg-black pt-12 md:pt-10 pb-20 md:pb-32"
+            className="relative z-10 flex w-full flex-col items-center justify-center bg-black pt-12 md:pt-10 pb-20 md:pb-32 "
             id="work"
         >
             {/* Minimal Ambient Background */}

@@ -8,7 +8,6 @@ import { RiContactsFill } from "react-icons/ri";
 import { FaUserGraduate } from "react-icons/fa6";
 import { RiUser6Fill } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
-
 const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -76,9 +75,9 @@ const NavBar = () => {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                ? "bg-black/80 backdrop-blur-xl border-b border-white/5 py-3"
+                ? "bg-[#0E1016]/80 backdrop-blur-xl border-b border-white/5 py-3"
                 : "bg-transparent py-5"
-            } text-white px-5 flex flex-row justify-between items-center md:px-10`}
+                } text-white px-5 flex flex-row justify-between items-center md:px-10`}
         >
             <motion.div
                 initial={{ opacity: 0, x: 20 }}
@@ -96,7 +95,7 @@ const NavBar = () => {
                     <Link
                         key={href}
                         href={href}
-                        className="flex items-center space-x-2 text-sm font-medium text-white/80 hover:text-white transition-colors duration-200"
+                        className="flex items-center space-x-2 text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 group"
                         onClick={handleScroll}
                     >
                         <span className="text-lg opacity-70 group-hover:opacity-100">{icon}</span>
@@ -108,11 +107,11 @@ const NavBar = () => {
             {/* Mobile Menu Button */}
             <motion.button
                 whileTap={{ scale: 0.9 }}
-                className="md:hidden z-[60] text-3xl p-2 focus:outline-none order-1"
+                className="md:hidden z-[60] text-3xl p-2 focus:outline-none order-1 text-white"
                 onClick={toggleMenu}
                 aria-label="Toggle Menu"
             >
-                {isMenuOpen ? <IoClose className="text-white" /> : <IoMenu className="text-white" />}
+                {isMenuOpen ? <IoClose /> : <IoMenu />}
             </motion.button>
 
             {/* Mobile Menu Overlay */}
@@ -123,7 +122,7 @@ const NavBar = () => {
                         animate="open"
                         exit="closed"
                         variants={menuVariants}
-                        className="fixed inset-0 bg-black/98 backdrop-blur-2xl z-50 md:hidden flex flex-col items-start justify-center px-12 space-y-8"
+                        className="fixed inset-0 bg-[#0E1016]/98 backdrop-blur-2xl z-50 md:hidden flex flex-col items-start justify-center px-12 space-y-8"
                     >
                         {navLinks.map(({ label, href, icon }) => (
                             <motion.div key={href} variants={linkVariants}>

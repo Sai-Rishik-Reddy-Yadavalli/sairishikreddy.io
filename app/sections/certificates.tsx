@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const Certifications: React.FC = () => {
     return (
         <section
-            className="relative z-10 w-full bg-black py-24 md:py-32"
+            className="relative z-10 w-full bg-black py-24 md:py-32 "
             id="certifications"
         >
             {/* Minimal Ambient Background */}

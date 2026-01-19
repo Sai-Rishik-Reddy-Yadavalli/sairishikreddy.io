@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const About = () => {
     return (
         <section
-            className="relative z-10 w-full overflow-hidden bg-black py-24 md:py-32 lg:py-48"
+            className="relative z-10 w-full overflow-hidden bg-black py-24 md:py-32 lg:py-48 "
             id="about"
         >
             {/* Minimal Ambient Background */}
