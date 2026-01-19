@@ -17,7 +17,7 @@ const educationDetails = [
         location: "Uppal, Hyderabad",
         degree: "Intermediate - MPC",
         duration: "2020 — 2022",
-        score: "68.5%",
+        score: "Percentage: 68.5%/100%",
     },
     {
         institute: "SRI CHAITANYA TECHNICAL SCHOOL",
@@ -31,14 +31,13 @@ const educationDetails = [
 const Education = () => {
     return (
         <section
-            className="relative z-10 w-full bg-black py-24 md:py-32"
+            className="relative z-10 w-full bg-black pt-24 md:pt-32 pb-12 md:pb-16"
             id="education"
         >
             {/* Minimal Ambient Background - No hard lines */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[800px] bg-[#5CE65C]/[0.02] rounded-full blur-[120px]" />
             </div>
-
             <div className="relative z-20 mx-auto max-w-[1200px] px-6">
                 <header className="mb-20 flex flex-col items-center justify-center text-center">
                     <AnimatedTitle

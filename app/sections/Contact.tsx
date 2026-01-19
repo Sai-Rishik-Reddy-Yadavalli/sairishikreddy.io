@@ -1,108 +1,214 @@
 import Link from "next/link";
-import { inter } from "../fonts/inter";
 import "../animations/animate.css";
 import AnimatedBody from "../animations/AnimatedBody";
 import AnimatedTitle from "../animations/AnimatedTitle";
-import AnimatedWords from "../animations/AnimatedWords";
 import { motion } from "framer-motion";
-import React from "react";
-import HackerBackground from "../components/background/hackerbg";
+import React, { useState } from "react";
+import { SiGithub, SiLinkedin } from "react-icons/si";
+import { HiOutlineArrowLongRight } from "react-icons/hi2";
 
 const Contact = () => {
+    const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+    const [isFocused, setIsFocused] = useState<string | null>(null);
+    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setStatus("loading");
+
+        try {
+            const response = await fetch("https://formspree.io/f/mnqeobyo", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                setStatus("success");
+                setFormData({ name: "", email: "", message: "" });
+                setTimeout(() => setStatus("idle"), 5000);
+            } else {
+                setStatus("error");
+            }
+        } catch (error) {
+            setStatus("error");
+        }
+    };
+
     return (
-        <motion.section
-            className="relative z-10 flex h-[85vh] w-full items-center justify-center overflow-hidden 
-                py-16 md:h-[80vh] md:py-20 lg:h-[90vh] lg:pt-0 lg:pb-28"
+        <section
+            className="relative z-10 w-full overflow-hidden bg-black py-24 md:py-32 lg:py-48"
             id="contact"
-            initial="initial"
-            animate="animate"
         >
-            {/* Background */}
-            <div className="absolute inset-0 opacity-50">
-                <HackerBackground />
+            {/* Minimal Ambient Background */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[800px] bg-[#5CE65C]/[0.02] rounded-full blur-[120px]" />
             </div>
 
-            {/* Content Wrapper */}
-            <div className="relative z-20 mx-auto flex w-[90%] flex-col items-center justify-center pt-10 md:pt-0">
-                {/* Title */}
-                <div
-                    className={`flex flex-col items-start justify-center ${inter.className} 
-                    w-full sm:items-center lg:max-w-[1440px]`}
-                >
-                    <AnimatedWords
-                        title="contact"
-                        style="flex max-w-[250px] flex-col items-start text-left text-[80px] font-extrabold uppercase 
-                        leading-[0.9em] text-[#e4ded7] sm:max-w-full sm:flex-row sm:items-center sm:justify-center 
-                        sm:text-center sm:text-[120px] md:text-[130px] lg:text-center lg:text-[140px] xl:text-[180px]"
+            <div className="relative z-20 mx-auto max-w-[1200px] px-6">
+                <header className="mb-20 flex flex-col items-center justify-center text-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.3em] text-[#5CE65C]"
+                    >
+                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#5CE65C] shadow-[0_0_8px_#5CE65C]" />
+                        Drop a line
+                    </motion.div>
+
+                    <AnimatedTitle
+                        text={"LET'S CONNECT"}
+                        className="text-[45px] font-black leading-none tracking-tighter text-white sm:text-[70px] md:text-[90px] lg:text-[110px]"
+                        wordSpace="mr-[0.3em]"
+                        charSpace=""
                     />
-                </div>
+                </header>
 
-                {/* Contact Details */}
-                <div
-                    className="mt-16 flex w-full flex-col items-end justify-center gap-12 
-                    sm:mt-24 md:mt-28 md:flex-row md:items-start md:justify-between lg:mt-16 lg:max-w-[1440px]"
-                >
-                    {/* Email Section */}
-                    <div
-                        className="flex w-full max-w-[400px] flex-col items-end text-right text-[14px] font-semibold 
-                        uppercase text-[#e4ded7] sm:w-[350px] sm:text-[14px] md:w-[310px] md:items-start md:text-left 
-                        md:text-[16px] lg:w-[420px] lg:text-[16px]"
-                    >
-                        <AnimatedBody
-                            text="Hi! I'm a fresh graduate looking to connect. Would you like to discuss any opportunities 
-                            or projects we could work on together?"
-                            className="-mb-1 inline-block overflow-hidden pt-1 sm:-mb-2 md:-mb-3 lg:-mb-4"
-                        />
+                <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
+                    {/* Left Side: Contact Info & Narrative */}
+                    <div className="flex flex-col gap-12">
+                        <div className="space-y-6">
+                            <motion.span
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                className="text-xs font-bold tracking-[0.5em] text-[#5CE65C] uppercase"
+                            >
+                                Contact Details
+                            </motion.span>
+                            <AnimatedBody
+                                text="Have a project in mind or just want to say hi? I'm always open to discussing new opportunities, creative ideas, or being part of your vision."
+                                className="text-lg leading-relaxed text-gray-400 md:text-xl"
+                            />
+                        </div>
 
-                        {/* Updated Gmail Redirection Link */}
-                        <Link
-                            href="https://mail.google.com/mail/?view=cm&fs=1&to=sairishikreddyyadavalli@gmail.com&su=Let's%20work%20together!&body=Hello,%20I%20think%20we%20need%20you%20to%20work%20on/collaborate%20this%20particular%20product...%20Reach%20out%20as%20soon%20as%20you%20can."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Send me an email"
-                            className="mt-2 w-auto text-[16px] underline underline-offset-2 transition-all duration-300 
-                            hover:no-underline hover:text-[#fff] sm:mt-3 md:mt-4 lg:mt-5"
-                        >
-                            <AnimatedBody text="Send me an email" />
-                        </Link>
+                        <div className="flex flex-col gap-8">
+                            <a
+                                href="mailto:sairishikreddyyadavalli@gmail.com"
+                                className="group flex flex-col items-start gap-1 transition-all"
+                            >
+                                <span className="text-[10px] font-bold tracking-widest text-gray-500 uppercase">Email</span>
+                                <span className="text-xl font-bold text-white transition-colors group-hover:text-[#5CE65C] md:text-2xl">
+                                    sairishikreddyyadavalli@gmail.com
+                                </span>
+                            </a>
+
+                            {/* Socials - Minimal Icons */}
+                            <div className="flex items-center gap-8">
+                                <Link
+                                    href="https://github.com/22r01a0561"
+                                    target="_blank"
+                                    className="group text-white/30 transition-all hover:text-white"
+                                >
+                                    <SiGithub size={28} className="group-hover:scale-110 transition-transform" />
+                                </Link>
+                                <Link
+                                    href="https://www.linkedin.com/in/rishik08"
+                                    target="_blank"
+                                    className="group text-white/30 transition-all hover:text-white"
+                                >
+                                    <SiLinkedin size={28} className="group-hover:scale-110 transition-transform" />
+                                </Link>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Social Links */}
-                    <div
-                        className="flex gap-8 text-[16px] font-bold text-[#e4ded7] sm:gap-12 sm:text-[20px] 
-                        md:gap-10 md:text-[18px] lg:gap-16 lg:text-[24px]"
+                    {/* Right Side: Professional Message Box Form */}
+                    <motion.form
+                        onSubmit={handleSubmit}
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        className="flex flex-col gap-8"
                     >
-                        <Link
-                            href="https://github.com/22r01a0561"
-                            target="_blank"
-                            aria-label="View My GitHub Profile"
-                        >
-                            <AnimatedTitle
-                                text="GITHUB"
-                                className="text-[16px] font-bold text-[#e4ded7] transition-all duration-300 
-                                hover:text-[#fff] sm:text-[20px] md:text-[18px] lg:text-[24px]"
-                                wordSpace="mr-[0.25em]"
-                                charSpace="mr-[0.01em]"
-                            />
-                        </Link>
+                        <div className="flex flex-col gap-6 sm:flex-row">
+                            <div className="relative flex-1">
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="YOUR NAME"
+                                    required
+                                    onFocus={() => setIsFocused("name")}
+                                    onBlur={() => setIsFocused(null)}
+                                    onChange={handleChange}
+                                    className="w-full bg-transparent border-b border-white/10 py-4 text-xs font-bold tracking-[0.2em] text-white outline-none transition-all placeholder:text-gray-700 focus:border-[#5CE65C]"
+                                />
+                                <motion.div
+                                    className="absolute bottom-0 left-0 h-[2px] bg-[#5CE65C]"
+                                    initial={{ width: 0 }}
+                                    animate={{ width: isFocused === "name" ? "100%" : "0%" }}
+                                />
+                            </div>
+                            <div className="relative flex-1">
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="YOUR EMAIL"
+                                    required
+                                    onFocus={() => setIsFocused("email")}
+                                    onBlur={() => setIsFocused(null)}
+                                    onChange={handleChange}
+                                    className="w-full bg-transparent border-b border-white/10 py-4 text-xs font-bold tracking-[0.2em] text-white outline-none transition-all placeholder:text-gray-700 focus:border-[#5CE65C]"
+                                />
+                                <motion.div
+                                    className="absolute bottom-0 left-0 h-[2px] bg-[#5CE65C]"
+                                    initial={{ width: 0 }}
+                                    animate={{ width: isFocused === "email" ? "100%" : "0%" }}
+                                />
+                            </div>
+                        </div>
 
-                        <Link
-                            href="https://www.linkedin.com/in/rishik08"
-                            target="_blank"
-                            aria-label="View My LinkedIn Profile"
-                        >
-                            <AnimatedTitle
-                                text="LINKEDIN"
-                                className="text-[16px] font-bold text-[#e4ded7] transition-all duration-300 
-                                hover:text-[#fff] sm:text-[20px] md:text-[18px] lg:text-[24px]"
-                                wordSpace="mr-[0.25em]"
-                                charSpace="mr-[0.01em]"
+                        <div className="relative">
+                            <textarea
+                                name="message"
+                                placeholder="YOUR MESSAGE"
+                                required
+                                rows={4}
+                                onFocus={() => setIsFocused("message")}
+                                onBlur={() => setIsFocused(null)}
+                                onChange={handleChange}
+                                className="w-full bg-transparent border-b border-white/10 py-4 text-xs font-bold tracking-[0.2em] text-white outline-none transition-all placeholder:text-gray-700 focus:border-[#5CE65C] resize-none"
                             />
-                        </Link>
-                    </div>
+                            <motion.div
+                                className="absolute bottom-0 left-0 h-[2px] bg-[#5CE65C]"
+                                initial={{ width: 0 }}
+                                animate={{ width: isFocused === "message" ? "100%" : "0%" }}
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={status === "loading"}
+                            className={`group relative flex items-center justify-between overflow-hidden rounded-full px-8 py-5 text-xs font-black tracking-[0.3em] transition-all active:scale-95 sm:w-fit ${status === "success" ? "bg-[#5CE65C] text-black" : "bg-white text-black"
+                                } ${status === "loading" ? "opacity-70 cursor-not-allowed" : ""}`}
+                        >
+                            <span className="relative z-10 uppercase">
+                                {status === "idle" && "Send Message"}
+                                {status === "loading" && "Sending..."}
+                                {status === "success" && "Message Sent!"}
+                                {status === "error" && "Error! Try Again"}
+                            </span>
+                            <div className="relative z-10 ml-4 flex h-6 w-6 items-center justify-center rounded-full bg-black text-white transition-transform group-hover:translate-x-2">
+                                <HiOutlineArrowLongRight size={16} />
+                            </div>
+
+                            {/* Hover Shimmer */}
+                            {status === "idle" && (
+                                <motion.div
+                                    className="absolute inset-0 z-0 bg-gradient-to-r from-transparent via-black/5 to-transparent"
+                                    animate={{ x: ['-200%', '200%'] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                                />
+                            )}
+                        </button>
+                    </motion.form>
                 </div>
             </div>
-        </motion.section>
+        </section>
     );
 };
 

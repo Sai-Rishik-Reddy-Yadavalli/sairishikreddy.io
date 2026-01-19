@@ -7,7 +7,6 @@ import { MdWork, MdHomeFilled } from "react-icons/md";
 import { RiContactsFill } from "react-icons/ri";
 import { FaUserGraduate } from "react-icons/fa6";
 import { RiUser6Fill } from "react-icons/ri";
-import { FaTools } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NavBar = () => {
@@ -43,7 +42,6 @@ const NavBar = () => {
         { label: "Education", href: "#education", icon: <FaUserGraduate /> },
         { label: "Work", href: "#work", icon: <MdWork /> },
         { label: "Certificates", href: "#certifications", icon: <PiCertificateFill /> },
-        { label: "Tools", href: "#tools", icon: <FaTools /> },
         { label: "Contact", href: "#contact", icon: <RiContactsFill /> },
     ];
 
@@ -80,7 +78,7 @@ const NavBar = () => {
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
                 ? "bg-black/80 backdrop-blur-xl border-b border-white/5 py-3"
                 : "bg-transparent py-5"
-            } text-white px-5 flex flex-row justify-between items-center md:px-10`}
+                } text-white px-5 flex flex-row justify-between items-center md:px-10`}
         >
             <motion.div
                 initial={{ opacity: 0, x: 20 }}

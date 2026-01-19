@@ -1,166 +1,192 @@
 import { ProjectProps } from "./projectDetails";
 import Link from "next/link";
-import Image from "next/legacy/image";
-import AnimatedTitle from "../../animations/AnimatedTitle";
-import AnimatedBody from "../../animations/AnimatedBody";
-import { motion } from "framer-motion";
-import Container from "../container/Container";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import { SiGithub } from "react-icons/si";
-import { BsLink45Deg } from "react-icons/bs";
+import { HiOutlineExternalLink } from "react-icons/hi";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+
+interface ExtendedProjectProps extends ProjectProps {
+    index: number;
+}
 
 const ProjectCard = ({
-    id,
     name,
     description,
     technologies,
     techNames,
-    techLinks,
     github,
     demo,
-    image,
+    images,
     available,
-}: ProjectProps) => {
-    const [textColor, setTextColor] = useState("#ffffff"); // Default white text
+    index
+}: ExtendedProjectProps) => {
+    const isEven = index % 2 === 0;
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+    // Auto-slideshow effect
     useEffect(() => {
-        const img = new window.Image();
-        img.crossOrigin = "Anonymous"; // Prevent CORS issues
-        img.src = image || "/images/default.png";
+        if (images.length <= 1) return;
 
-        img.onload = () => {
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
-            if (!ctx) return;
+        const timer = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % images.length);
+        }, 5000);
 
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0, img.width, img.height);
+        return () => clearInterval(timer);
+    }, [images.length]);
 
-            const imageData = ctx.getImageData(0, 0, img.width, img.height);
-            const pixels = imageData.data;
+    const nextImage = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    };
 
-            let r = 0, g = 0, b = 0, count = 0;
-            for (let i = 0; i < pixels.length; i += 4 * 100) { // Sample every 100th pixel
-                r += pixels[i];
-                g += pixels[i + 1];
-                b += pixels[i + 2];
-                count++;
-            }
-
-            r = Math.floor(r / count);
-            g = Math.floor(g / count);
-            b = Math.floor(b / count);
-
-            const brightness = (r * 299 + g * 587 + b * 114) / 1000; // Standard brightness formula
-
-            setTextColor(brightness > 128 ? "#000000" : "#ffffff"); // Light bg → Dark text, Dark bg → Light text
-        };
-    }, [image]);
+    const prevImage = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+    };
 
     return (
         <motion.div
-            className="relative"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className={`flex flex-col gap-16 lg:flex-row lg:items-start ${isEven ? "" : "lg:flex-row-reverse"}`}
         >
-            <motion.div
-                className={`relative bg-cover bg-no-repeat bg-center z-10 h-full w-full 
-                items-stretch justify-center py-0 sm:h-[850px] sm:w-[100%] md:h-[750px] 
-                md:w-[100%] lg:h-[650px] lg:w-[100%]`}
-            >
-                <Container
-                    width="100%"
-                    height="100%"
-                    borderRadius={25}
-                    color="rgba(255, 255, 255, 0.1)"
-                    blur={false}
-                    grain={true}
-                    top="0px"
-                    left="0px"
-                    angle={0}
-                >
-                    <div className="relative w-full h-full rounded-lg overflow-hidden">
-                        <Image
-                            src={image || "/images/default.png"}
-                            alt={name}
-                            layout="fill"
-                            objectFit="cover"
-                            className="transition-transform duration-300 hover:scale-105"
-                            priority={true}
-                        />
-                    </div>
+            {/* Image Side (Natural Slideshow) */}
+            <div className={`relative flex flex-[0.45] items-center ${isEven ? "justify-center lg:justify-start" : "justify-center lg:justify-end"}`}>
+                <div className="relative group w-full max-w-[260px] sm:max-w-[200px] lg:max-w-[200px]">
+                    {/* Slideshow Container - No "Box" Backgrounds */}
+                    <div className="relative aspect-[9/19.5] w-full overflow-hidden rounded-[2.5rem] shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={currentImageIndex}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.5, ease: "anticipate" }}
+                                className="absolute inset-0"
+                            >
+                                <Image
+                                    src={images[currentImageIndex].startsWith('./') ? images[currentImageIndex].substring(1) : images[currentImageIndex]}
+                                    alt={`${name} screenshot ${currentImageIndex + 1}`}
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                            </motion.div>
+                        </AnimatePresence>
 
-                    {/* GitHub & Demo Links */}
-                    <div
-                        className={`absolute top-0 ${id % 2 === 0 ? "left-0 ml-8 lg:ml-14" : "right-0 mr-8 lg:mr-14"} 
-                            mt-6 flex items-center justify-center gap-4 lg:mt-10`}
-                    >
-                        {available && (
-                            <>
-                                <Link
-                                    href={github}
-                                    target="_blank"
-                                    aria-label="Open GitHub Repository"
-                                    className="rounded-full w-[43px] p-3 md:p-5 
-                                        text-[20px] md:w-[65px] md:text-[24px] lg:w-[65px] lg:text-[28px]"
-                                    style={{ backgroundColor: textColor === "#ffffff" ? "#000000" : "#ffffff", color: textColor }}
+                        {/* Glassmorphic Nav Buttons - Only on Hover */}
+                        {images.length > 1 && (
+                            <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                <button
+                                    onClick={prevImage}
+                                    className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-xl transition-all hover:bg-white/20 active:scale-90"
                                 >
-                                    <SiGithub />
-                                </Link>
-                                <Link
-                                    href={demo}
-                                    target="_blank"
-                                    aria-label="Open Live Demo"
-                                    className="rounded-full w-[43px] p-3 md:p-5 
-                                        text-[20px] md:w-[65px] md:text-[24px] lg:w-[65px] lg:text-[28px]"
-                                    style={{ backgroundColor: textColor === "#ffffff" ? "#000000" : "#ffffff", color: textColor }}
+                                    <IoIosArrowBack size={24} />
+                                </button>
+                                <button
+                                    onClick={nextImage}
+                                    className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-xl transition-all hover:bg-white/20 active:scale-90"
                                 >
-                                    <BsLink45Deg />
-                                </Link>
-                            </>
+                                    <IoIosArrowForward size={24} />
+                                </button>
+                            </div>
                         )}
                     </div>
 
-                    {/* Project Details */}
-                    <div
-                        className={`absolute ${!(id % 2 === 0)
-                            ? "right-0 top-32 mr-0 ml-10 md:right-0 md:ml-0 lg:right-0 lg:top-60 lg:mr-4"
-                            : "left-10 top-32 ml-0 md:mr-12 lg:top-52 lg:ml-4"
-                        } mb-10 md:mb-16 lg:mb-14`}
-                    >
-                        <AnimatedTitle
-                            text={name}
-                            className={`max-w-[90%] text-[40px] leading-none md:text-[44px] lg:max-w-[450px] lg:text-[48px] ${textColor === "#ffffff" ? "text-white" : "text-black"}`}
-                            wordSpace="mr-[0.25em]"
-                            charSpace="-mr-[0.01em]"
-                        />
-                        <AnimatedBody
-                            text={description}
-                            className={`mt-4 w-[90%] max-w-[457px] text-[16px] font-bold ${textColor === "#ffffff" ? "text-white" : "text-black"}`}
-                        />
-                        <div className="mt-9 mb-9 grid grid-cols-5 gap-5 col-start-1 col-end-2">
-                            {technologies.map((IconComponent, id) => (
-                                <div key={id} className="relative">
-                                    <Link
-                                        href={techLinks[id]}
-                                        target="_blank"
-                                        aria-label={`Learn more about ${techNames[id]}`}
-                                        className="w-[20px] text-[20px] md:w-[25px] md:text-[24px] 
-                                            lg:w-[30px] lg:text-[28px]"
-                                        title={techLinks[id]}
-                                        data-blobity-tooltip={techNames[id]}
-                                        data-blobity-magnetic="false"
-                                        style={{ color: textColor }}
-                                    >
-                                        <IconComponent />
-                                    </Link>
-                                </div>
+                    {/* Indicators (Beads) on the side */}
+                    {images.length > 1 && (
+                        <div className={`absolute top-1/2 -translate-y-1/2 flex flex-col gap-4 ${isEven ? "-right-10" : "-left-10"}`}>
+                            {images.map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => setCurrentImageIndex(i)}
+                                    className="group relative h-4 w-4 flex items-center justify-center"
+                                >
+                                    <motion.span
+                                        initial={false}
+                                        animate={{
+                                            scale: i === currentImageIndex ? 1 : 0.5,
+                                            backgroundColor: i === currentImageIndex ? "#5CE65C" : "rgba(255,255,255,0.2)"
+                                        }}
+                                        className="h-2 w-2 rounded-full transition-colors group-hover:bg-white/50"
+                                    />
+                                    {i === currentImageIndex && (
+                                        <motion.span
+                                            layoutId="indicator-ring"
+                                            className="absolute inset-0 rounded-full border border-[#5CE65C]/50"
+                                        />
+                                    )}
+                                </button>
                             ))}
                         </div>
-                    </div>
-                </Container>
-            </motion.div>
+                    )}
+                </div>
+
+                {/* Vertical Tech Stack on the side */}
+                <div className={`absolute top-1/2 -translate-y-1/2 flex flex-col gap-6 ${isEven ? "-left-12" : "-right-12"}`}>
+                    {technologies.map((Icon, i) => (
+                        <motion.div
+                            key={i}
+                            whileHover={{ scale: 1.2, x: isEven ? -5 : 5 }}
+                            className="text-white/10 hover:text-[#5CE65C] transition-all cursor-help"
+                            title={techNames[i]}
+                        >
+                            <Icon size={26} />
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Content Side */}
+            <div className={`flex flex-1 flex-col pt-4 ${isEven ? "lg:pl-20" : "lg:pr-20"}`}>
+                <div className="flex items-center gap-4 mb-4">
+                    <span className="text-xs font-bold tracking-[0.4em] text-[#5CE65C] uppercase">
+                        Featured Case Study
+                    </span>
+                    <div className="h-[1px] w-12 bg-[#5CE65C]/30" />
+                </div>
+
+                <h3 className="text-[40px] font-black leading-tight text-white md:text-[50px] lg:text-[72px] mb-8">
+                    {name}
+                </h3>
+
+                <p className="text-lg leading-relaxed text-gray-400 mb-10 max-w-xl">
+                    {description}
+                </p>
+
+                <div className="flex items-center gap-10">
+                    {available && (
+                        <>
+                            <Link
+                                href={github}
+                                target="_blank"
+                                className="group flex items-center gap-3 text-sm font-bold tracking-widest text-white/50 uppercase transition-colors hover:text-white"
+                            >
+                                <SiGithub size={22} />
+                                <span className="relative">
+                                    Source
+                                    <span className="absolute -bottom-1 left-0 h-[1px] w-0 bg-white transition-all group-hover:w-full" />
+                                </span>
+                            </Link>
+
+                            <Link
+                                href={demo}
+                                target="_blank"
+                                className="group flex items-center gap-3 text-sm font-bold tracking-widest text-[#5CE65C]/80 uppercase transition-colors hover:text-[#5CE65C]"
+                            >
+                                <HiOutlineExternalLink size={24} />
+                                <span className="relative">
+                                    Play Store
+                                    <span className="absolute -bottom-1 left-0 h-[1px] w-0 bg-[#5CE65C] transition-all group-hover:w-full" />
+                                </span>
+                            </Link>
+                        </>
+                    )}
+                </div>
+            </div>
         </motion.div>
     );
 };

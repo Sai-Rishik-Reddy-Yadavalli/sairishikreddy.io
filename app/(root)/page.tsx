@@ -11,7 +11,6 @@ import Education from "../sections/education";
 import Work from "../sections/Work";
 import Contact from "../sections/Contact";
 import Footer from "../sections/Footer";
-import Tools from "../sections/Tools";
 import { ScrollArea } from "../components/ui/ScrollArea";
 import Certifications from "../sections/certificates";
 
@@ -77,8 +76,7 @@ export default function Home() {
                     <About />
                     <Education />
                     <Work />
-                    <Certifications/>
-                    <Tools />
+                    <Certifications />
                     <Contact />
                     <Footer />
                 </main>

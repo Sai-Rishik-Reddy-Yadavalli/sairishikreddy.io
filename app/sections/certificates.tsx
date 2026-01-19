@@ -1,38 +1,42 @@
 import CertificationCard from "../components/certifications/CertificationCard";
 import { certifications } from "../components/certifications/certificationDetails";
-import HackerBackground from "../components/background/hackerbg";
 import React from "react";
+import AnimatedTitle from "../animations/AnimatedTitle";
+import { motion } from "framer-motion";
 
 const Certifications: React.FC = () => {
     return (
         <section
-            className="relative z-10 flex w-full flex-col items-center justify-center bg-center 
-            px-4 sm:px-6 md:px-8 lg:px-10 py-16 md:py-20 lg:py-24"
+            className="relative z-10 w-full bg-black py-24 md:py-32"
             id="certifications"
         >
-            {/* Background */}
-            <div className="absolute inset-0 opacity-25">
-                <HackerBackground />
+            {/* Minimal Ambient Background */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[800px] bg-[#5CE65C]/[0.02] rounded-full blur-[120px]" />
             </div>
 
-            {/* Title */}
-            <h2 className="relative z-20 mb-8 sm:mb-10 md:mb-14 lg:mb-16 text-[30px] sm:text-[36px] 
-                md:text-[42px] lg:text-[60px] font-bold tracking-tight text-[#e4ded7] text-center">
-                Certifications
-            </h2>
-
-            {/* Certification Cards Grid */}
-            <div className="relative z-20 grid w-full max-w-[1200px] grid-cols-1 sm:grid-cols-2 
-                gap-y-8 gap-x-6 px-4">
-                {certifications.map((cert) => (
-                    <CertificationCard
-                        key={cert.id}
-                        id={cert.id}
-                        name={cert.name}
-                        image={cert.image}
-                        link={cert.link}
+            <div className="relative z-20 mx-auto max-w-[1200px] px-6 w-full">
+                <header className="mb-20 flex flex-col items-center justify-center text-center">
+                    <AnimatedTitle
+                        text={"CERTIFICATIONS"}
+                        className="text-[35px] font-black leading-none tracking-tighter text-white sm:text-[55px] md:text-[75px] lg:text-[90px]"
+                        wordSpace="mr-[0.3em]"
+                        charSpace=""
                     />
-                ))}
+                    <div className="mt-6 h-1 w-24 bg-[#5CE65C]/20 rounded-full" />
+                </header>
+
+                <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
+                    {certifications.map((cert) => (
+                        <CertificationCard
+                            key={cert.id}
+                            id={cert.id}
+                            name={cert.name}
+                            image={cert.image}
+                            link={cert.link}
+                        />
+                    ))}
+                </div>
             </div>
         </section>
     );

@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { motion } from "framer-motion";
+import { HiOutlineExternalLink } from "react-icons/hi";
+import Image from "next/image";
 
 interface CertificationCardProps {
     id: number;
@@ -8,63 +11,51 @@ interface CertificationCardProps {
 }
 
 const CertificationCard: React.FC<CertificationCardProps> = ({ id, name, image, link }) => {
-    const [textColor, setTextColor] = useState("#ffffff"); // Default white text
-
-    useEffect(() => {
-        const img = new Image();
-        img.crossOrigin = "Anonymous"; // Prevent CORS issues
-        img.src = image;
-
-        img.onload = () => {
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
-            if (!ctx) return;
-
-            // Resize canvas to match image dimensions
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0, img.width, img.height);
-
-            const imageData = ctx.getImageData(0, 0, img.width, img.height);
-            const pixels = imageData.data;
-
-            let r = 0, g = 0, b = 0, count = 0;
-
-            for (let i = 0; i < pixels.length; i += 4 * 100) { // Sample every 100th pixel
-                r += pixels[i];
-                g += pixels[i + 1];
-                b += pixels[i + 2];
-                count++;
-            }
-
-            r = Math.floor(r / count);
-            g = Math.floor(g / count);
-            b = Math.floor(b / count);
-
-            // Calculate brightness
-            const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-
-            // Generate complementary color
-            const complementaryColor = `rgb(${255 - r}, ${255 - g}, ${255 - b})`;
-
-            setTextColor(brightness > 128 ? complementaryColor : "#ffffff"); // Dark background → Light text, Light background → Complementary color
-        };
-
-        img.onerror = () => {
-            console.error("Error loading image:", image);
-        };
-    }, [image]);
-
     return (
-        <div className="relative flex flex-col items-center justify-center rounded-lg shadow-lg overflow-hidden p-6 bg-[#1a1a1a]">
-            <img src={image} alt={name} className="w-full h-48 object-cover rounded-lg" />
-            <h3 className="mt-4 text-lg font-semibold" style={{ color: textColor }}>
-                {name}
-            </h3>
-            <a href={link} target="_blank" rel="noopener noreferrer" className="mt-2 text-sm underline">
-                View Certificate
-            </a>
-        </div>
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="group relative flex flex-col items-start gap-4 p-4 transition-all"
+        >
+            {/* Soft Ambient Glow on Hover - No hard boxes */}
+            <div className="absolute inset-0 -z-10 rounded-3xl bg-[#5CE65C]/[0.03] opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
+
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-2xl">
+                <Image
+                    src={image.startsWith('./') ? image.substring(1) : image}
+                    alt={name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+
+                {/* External Link Overlay */}
+                <a
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                >
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md">
+                        <HiOutlineExternalLink size={24} />
+                    </div>
+                </a>
+            </div>
+
+            <div className="flex w-full flex-col gap-2">
+                <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-bold tracking-[0.3em] text-[#5CE65C] uppercase">
+                        ACHIEVEMENT {id + 1}
+                    </span>
+                    <div className="h-[1px] flex-1 bg-white/5 group-hover:bg-[#5CE65C]/20 transition-colors" />
+                </div>
+
+                <h3 className="text-lg font-bold leading-tight text-white group-hover:text-[#5CE65C] transition-colors">
+                    {name}
+                </h3>
+            </div>
+        </motion.div>
     );
 };
 
