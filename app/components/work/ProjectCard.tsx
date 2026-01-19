@@ -69,7 +69,7 @@ const ProjectCard = ({
                                 className="absolute inset-0"
                             >
                                 <Image
-                                    src={`${process.env.NODE_ENV === "production" ? "/sairishikreddy.io" : ""}${images[currentImageIndex]}`}
+                                    src={images[currentImageIndex]}
                                     alt={`${name} screenshot ${currentImageIndex + 1}`}
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-110"

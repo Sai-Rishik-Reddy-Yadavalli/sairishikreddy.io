@@ -105,7 +105,7 @@ const Hero = () => {
                         <div className="absolute inset-16 border border-white/[0.03] rounded-full animate-[spin_20s_linear_infinite_reverse]" />
 
                         <Image
-                            src={`${process.env.NODE_ENV === "production" ? "/sairishikreddy.io" : ""}/assets/creative-avatar.png`}
+                            src="/assets/creative-avatar.png"
                             alt="Sai Rishik Reddy"
                             fill
                             className="relative z-10 object-contain drop-shadow-[0_0_80px_rgba(92,230,92,0.15)]"

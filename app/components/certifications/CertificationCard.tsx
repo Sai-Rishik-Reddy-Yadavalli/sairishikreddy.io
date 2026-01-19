@@ -24,7 +24,7 @@ const CertificationCard: React.FC<CertificationCardProps> = ({ id, name, image, 
 
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-2xl">
                 <Image
-                    src={`${process.env.NODE_ENV === "production" ? "/sairishikreddy.io" : ""}${image}`}
+                    src={image}
                     alt={name}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
