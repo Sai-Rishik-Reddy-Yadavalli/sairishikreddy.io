@@ -30,7 +30,7 @@ export const projects = [
         techLinks: ["https://flutter.dev/", "https://dart.dev/", "https://firebase.google.com/", "https://developer.android.com/"],
         github: "https://github.com/Shiva7ganesh/TraceHub",
         demo: " ",
-        images: ["./projects/tracehub-Signup Page.png", "./projects/tracehub-Login Page.png", "./projects/tracehub-Important Notice.png", "./projects/tracehub-Lost Items.png", "./projects/tracehub-Lost Item Details.png", "./projects/tracehub-Add Lost Item.png", "./projects/tracehub-Found Items.png", "./projects/tracehub-Found Item Details.png", "./projects/tracehub-Add Found Item.png", "./projects/tracehub-Profile.png", "./projects/tracehub-Maintenance.png", "./projects/tracehub-Update.png" ],
+        images: ["/projects/tracehub-Signup Page.png", "/projects/tracehub-Login Page.png", "/projects/tracehub-Important Notice.png", "/projects/tracehub-Lost Items.png", "/projects/tracehub-Lost Item Details.png", "/projects/tracehub-Add Lost Item.png", "/projects/tracehub-Found Items.png", "/projects/tracehub-Found Item Details.png", "/projects/tracehub-Add Found Item.png", "/projects/tracehub-Profile.png", "/projects/tracehub-Maintenance.png", "/projects/tracehub-Update.png"],
         available: true,
     },
     // {
