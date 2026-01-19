@@ -186,7 +186,7 @@ const Contact = () => {
                             type="submit"
                             disabled={status === "loading"}
                             className={`group relative flex items-center justify-between overflow-hidden rounded-full px-8 py-5 text-xs font-black tracking-[0.3em] transition-all active:scale-95 sm:w-fit ${status === "success" ? "bg-[#5CE65C] text-white" : "bg-white text-white"
-                                } ${status === "loading" ? "opacity-70 cursor-not-allowed" : ""}`}
+                            } ${status === "loading" ? "opacity-70 cursor-not-allowed" : ""}`}
                         >
                             <span className="relative z-10 uppercase">
                                 {status === "idle" && "Send Message"}
