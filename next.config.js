@@ -5,9 +5,9 @@ const outputDir = process.env.BRANCH === 'dev' ? 'dev' : '.next';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Correctly handle the subpath for GitHub Pages
-    basePath: "/sairishikreddy.io",
-    assetPrefix: "/sairishikreddy.io/",
+    // Only apply basePath and assetPrefix in production (GitHub Pages)
+    basePath: isProduction ? "/sairishikreddy.io" : "",
+    assetPrefix: isProduction ? "/sairishikreddy.io/" : "",
 
     compiler: {
         reactRemoveProperties: isProduction,
