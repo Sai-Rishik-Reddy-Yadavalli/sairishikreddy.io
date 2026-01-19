@@ -102,6 +102,7 @@ const Contact = () => {
                                 <Link
                                     href="https://github.com/22r01a0561"
                                     target="_blank"
+                                    rel="noopener noreferrer"
                                     className="group text-white/30 transition-all hover:text-white"
                                 >
                                     <SiGithub size={28} className="group-hover:scale-110 transition-transform" />
@@ -109,6 +110,7 @@ const Contact = () => {
                                 <Link
                                     href="https://www.linkedin.com/in/rishik08"
                                     target="_blank"
+                                    rel="noopener noreferrer"
                                     className="group text-white/30 transition-all hover:text-white"
                                 >
                                     <SiLinkedin size={28} className="group-hover:scale-110 transition-transform" />

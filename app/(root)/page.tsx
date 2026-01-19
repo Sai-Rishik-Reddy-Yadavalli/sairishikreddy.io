@@ -38,6 +38,7 @@ export default function LandingPage() {
 
     return (
         <div className={`landing-body ${outfit.className}`}>
+            {/* eslint-disable-next-line react/no-unknown-property */}
             <style jsx global>{`
                 .landing-body {
                     background-color: #030712;
@@ -257,14 +258,14 @@ export default function LandingPage() {
                 </Link>
 
                 {/* LinkedIn */}
-                <a href="https://www.linkedin.com/in/sai-rishik-reddy-yadavalli-648b782b1/" className="card card-small linkedin" target="_blank" onClick={handleCardClick as any} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <a href="https://www.linkedin.com/in/sai-rishik-reddy-yadavalli-648b782b1/" className="card card-small linkedin" target="_blank" rel="noopener noreferrer" onClick={handleCardClick as any} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <div className="label-tag">Professional</div>
                     <i className="fab fa-linkedin" style={{ color: '#0a66c2' }}></i>
                     <h3>LinkedIn</h3>
                 </a>
 
                 {/* GitHub */}
-                <a href="https://github.com/Sai-Rishik-Reddy-Yadavalli" className="card card-small github" target="_blank" onClick={handleCardClick as any} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <a href="https://github.com/Sai-Rishik-Reddy-Yadavalli" className="card card-small github" target="_blank" rel="noopener noreferrer" onClick={handleCardClick as any} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <div className="label-tag">Source</div>
                     <i className="fab fa-github" style={{ color: '#f0f6fc' }}></i>
                     <h3>GitHub</h3>
