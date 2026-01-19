@@ -5,7 +5,10 @@ const outputDir = process.env.BRANCH === 'dev' ? 'dev' : '.next';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    distDir: outputDir,
+    // Correctly handle the subpath for GitHub Pages
+    basePath: "/sairishikreddy.io",
+    assetPrefix: "/sairishikreddy.io/",
+
     compiler: {
         reactRemoveProperties: isProduction,
         removeConsole: isProduction,
@@ -20,16 +23,10 @@ const nextConfig = {
     },
     experimental: {},
     output: "export",
-    trailingSlash: true,  // Important for static export builds
+    trailingSlash: true,
     productionBrowserSourceMaps: isProduction,
     images: {
-        unoptimized: true, // Fix Image Optimization Error
-        remotePatterns: [
-            {
-                protocol: "https",
-                hostname: "raw.githubusercontent.com",
-            },
-        ],
+        unoptimized: true,
     },
     pageExtensions: ["ts", "tsx", "js", "jsx", "mdx"],
 };

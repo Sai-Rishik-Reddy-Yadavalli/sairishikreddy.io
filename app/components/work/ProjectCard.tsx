@@ -69,7 +69,7 @@ const ProjectCard = ({
                                 className="absolute inset-0"
                             >
                                 <Image
-                                    src={images[currentImageIndex].startsWith('./') ? images[currentImageIndex].substring(1) : images[currentImageIndex]}
+                                    src={images[currentImageIndex].startsWith('./') ? images[currentImageIndex].slice(1) : images[currentImageIndex]}
                                     alt={`${name} screenshot ${currentImageIndex + 1}`}
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-110"
