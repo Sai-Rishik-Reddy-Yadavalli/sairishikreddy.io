@@ -87,7 +87,7 @@ This portfolio isn't just a resume; it's a statement. Built with a focus on **Vi
 
 I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
 
-- **Email**: [srreddyyadavalli@gmail.com](mailto:srreddyyadavalli@gmail.com)
+- **Email**: [sairishikreddyyadavalli@gmail.com](mailto:[sairishikreddyyadavalli@gmail.com)
 - **LinkedIn**: [linkedin.com/in/sai-rishik-reddy-yadavalli](https://www.linkedin.com/in/sai-rishik-reddy-yadavalli/)
 - **GitHub**: [@22r01a0561](https://github.com/22r01a0561)
 

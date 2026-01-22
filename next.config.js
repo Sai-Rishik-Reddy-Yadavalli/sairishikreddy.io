@@ -1,12 +1,11 @@
 // @ts-check
 
 const isProduction = process.env.NODE_ENV === "production";
-const outputDir = process.env.BRANCH === 'dev' ? 'dev' : '.next';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Only apply basePath in production (GitHub Pages)
     basePath: isProduction ? "/sairishikreddy.io" : "",
+    assetPrefix: isProduction ? "/sairishikreddy.io/" : "",
 
     compiler: {
         reactRemoveProperties: isProduction,
@@ -20,7 +19,6 @@ const nextConfig = {
     devIndicators: {
         position: "top-right",
     },
-    experimental: {},
     output: "export",
     trailingSlash: true,
     productionBrowserSourceMaps: isProduction,
